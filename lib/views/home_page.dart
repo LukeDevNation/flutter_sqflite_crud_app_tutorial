@@ -1,80 +1,161 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:crud_sqflite/viewmodels/home_viewmodel.dart';
+import '../viewmodels/home_viewmodel.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final homeViewModel = Provider.of<HomeViewModel>(context);
-
-    return Scaffold(
-      backgroundColor: Colors.amberAccent,
-      appBar: AppBar(title: const Text('CRUD Example')),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              //controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Nombre'),
-            ),
+    return ChangeNotifierProvider(
+      create: (_) => HomeViewModel()..fetchUsers(),
+      child: Scaffold(
+        backgroundColor: Colors.grey[200],
+        appBar: AppBar(
+          title: const Text(
+            'CRUD Example',
+            style: TextStyle(color: Colors.black),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              //controller: _ageController,
-              decoration: const InputDecoration(labelText: 'Edad'),
-              keyboardType: TextInputType.number,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              //controller: _phoneController,
-              decoration:
-                  const InputDecoration(labelText: 'Número de Teléfono'),
-            ),
-          ),
-          // Formularios de entrada
-          // (campos para agregar datos como antes)
-          ElevatedButton(
-            onPressed: () {
-              // Lógica para agregar datos
-            },
-            child: const Text('Agregar'),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: homeViewModel.dataList.length,
-              itemBuilder: (context, index) {
-                final item = homeViewModel.dataList[index];
-                return ListTile(
-                  title: Text(item.name),
-                  subtitle: Text('Edad: ${item.age}, Teléfono: ${item.phoneNumber}'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.edit),
-                        onPressed: () {
-                          // Lógica para editar
-                        },
+          centerTitle: true,
+          backgroundColor: Colors.teal,
+        ),
+        body: Consumer<HomeViewModel>(
+          builder: (context, viewModel, _) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Agregar Usuario',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            controller: TextEditingController(),
+                            decoration: InputDecoration(
+                              labelText: 'Nombre',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            controller: TextEditingController(),
+                            decoration: InputDecoration(
+                              labelText: 'Edad',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            keyboardType: TextInputType.number,
+                          ),
+                          const SizedBox(height: 12),
+                          TextField(
+                            controller: TextEditingController(),
+                            decoration: InputDecoration(
+                              labelText: 'Teléfono',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () =>
+                                  viewModel.addUser('Nombre', 25, '12345'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.teal,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: const Text('Agregar Usuario'),
+                            ),
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          homeViewModel.deleteData(item.id!);
-                        },
-                      ),
-                    ],
+                    ),
                   ),
-                );
-              },
-            ),
-          ),
-        ],
+                ),
+                Expanded(
+                  child: Card(
+                    margin: const EdgeInsets.all(16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListView.builder(
+                        itemCount: viewModel.users.length,
+                        itemBuilder: (context, index) {
+                          final user = viewModel.users[index];
+                          return Card(
+                            margin: const EdgeInsets.symmetric(vertical: 8.0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            elevation: 2,
+                            child: ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.teal[100],
+                                child: Text(
+                                  user.name[0].toUpperCase(),
+                                  style: const TextStyle(color: Colors.teal),
+                                ),
+                              ),
+                              title: Text(
+                                user.name,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                  'Edad: ${user.age}\nTeléfono: ${user.phoneNumber}'),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.edit,
+                                        color: Colors.teal),
+                                    onPressed: () {},
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.delete,
+                                        color: Colors.red),
+                                    onPressed: () =>
+                                        viewModel.deleteUser(user.id!),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,42 +1,44 @@
 # Flutter SQLite CRUD App
 
-**Description:**
+## **Description**
 
-This project is a task management application (To-Do List) created with **Flutter** and using **SQLite** as a local database to handle CRUD operations (Create, Read, Update, Delete). This tutorial aims to teach you how to integrate **SQLite** into a **Flutter** app and perform basic data manipulation operations in a local database.
+This project is a CRUD (Create, Read, Update, Delete) application built with **Flutter** and **SQLite**. It demonstrates how to integrate a local database solution into a Flutter application while adhering to the **MVVM (Model-View-ViewModel)** architecture for clean and maintainable code.
 
-## Technologies Used
+The application is configured to run on both **mobile devices** and **desktop** platforms, and has been tested on **Windows 10**.
 
-- **Flutter**: A UI framework from Google to build native apps for iOS, Android, web, and more.
-- **SQLite**: A lightweight database for local storage on mobile devices.
-- **Dart**: The programming language used in Flutter.
-- **Provider**: A state management solution for Flutter that allows you to manage and share app data across the widget tree.
-- **MVVM Architecture**: A design pattern used to separate the concerns of the application. It stands for Model-View-ViewModel, where:
-  - **Model**: Represents the data and business logic.
-  - **View**: The UI layer responsible for displaying the data.
-  - **ViewModel**: Acts as a bridge between the Model and the View, handling data manipulation and preparing it for the UI.
+## **Technologies Used**
 
-## Features
+- **Flutter**: A UI toolkit from Google for building natively compiled apps for mobile, web, and desktop from a single codebase.
+- **SQLite**: A lightweight relational database for local data storage.
+- **Dart**: The programming language used for Flutter development.
+- **SQL**: Used to manage and manipulate data in SQLite.
+- **MVVM Architecture**: A structured design pattern separating application logic:
+  - **Model**: Manages data and database operations.
+  - **ViewModel**: Acts as a bridge between the Model and View, handling business logic and preparing data for the UI.
+  - **View**: The UI layer responsible for displaying data and interacting with the user.
 
-- **Create tasks**: Allows adding new tasks with a title, description, and due date.
-- **Read tasks**: Displays a list of tasks saved in the local database.
-- **Update tasks**: Allows editing existing tasks.
-- **Delete tasks**: Allows deleting tasks from the database.
-- **Data persistence**: Data is stored locally in an SQLite database, even when the app is closed.
+## **Features**
 
-## Architecture
+- **Add Data**: Create new entries with fields such as name, age, and phone number.
+- **View Data**: Display saved entries in a list format.
+- **Edit Data**: Update existing entries with new information.
+- **Delete Data**: Remove entries from the SQLite database.
+- **Persistent Storage**: Data remains stored locally even when the app is closed or restarted.
+- **Reusable Widgets**: Modular components for better scalability and code reusability.
 
-This application is structured using the **MVVM** architecture pattern for better separation of concerns and code maintainability:
+## **Architecture**
 
-- **Model**: Represents the task data and interactions with the SQLite database.
-- **ViewModel**: Handles business logic and acts as an intermediary between the Model and View. It manages task-related operations such as adding, editing, or deleting tasks.
-- **View**: The UI layer that displays tasks to the user and listens for changes in the ViewModel.
+The app is designed using the **MVVM** architecture pattern for better separation of concerns:
 
-The **Provider** package is used for state management. It provides an efficient way to update the UI in response to changes in the ViewModel, ensuring that the UI is automatically updated when tasks are added, modified, or deleted.
+- **Model**: Represents and manages data. Interacts with SQLite for CRUD operations.
+- **ViewModel**: Processes and prepares data for the View. Bridges user actions with database logic.
+- **View**: Displays the UI and listens for changes in the ViewModel.
 
-## Installation
+## **Installation**
 
-To run this project locally, follow these steps:
+To run this project locally:
 
 1. **Clone the repository**:
    ```bash
-   https://github.com/Ingeniebrio1500/flutter_sqlite_crud_app_tutorial.git
+   git clone https://github.com/LukeDevNation/flutter_sqlite_crud_app_tutorial.git
+   ```
