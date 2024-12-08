@@ -7,7 +7,13 @@ class DatabaseService {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initializeDB('Local.db');
+    try {
+      _database = await _initializeDB('Local.db');
+    } catch (e) {
+      // Manejo de errores al inicializar la base de datos
+      // ignore: avoid_print
+      print('Error al inicializar la base de datos: ${e.toString()}');
+    }
     return _database!;
   }
 
