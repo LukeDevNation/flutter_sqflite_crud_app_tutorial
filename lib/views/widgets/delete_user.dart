@@ -23,16 +23,16 @@ class ButtonDeleteUserWidget extends StatelessWidget {
             content:
                 const Text('¿Estás seguro de que quieres eliminar este dato?'),
             actions: [
-              ElevatedButton(
-                child: const Text('Aceptar'),
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-              ),
               TextButton(
                 child: const Text('Cancelar'),
                 onPressed: () {
                   Navigator.of(context).pop(false);
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Aceptar'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
                 },
               ),
             ],

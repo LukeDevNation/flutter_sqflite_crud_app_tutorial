@@ -1,9 +1,9 @@
-import 'package:crud_sqflite/widgets/add_user.dart';
-import 'package:crud_sqflite/widgets/delete_user.dart';
-import 'package:crud_sqflite/widgets/input_age.dart';
-import 'package:crud_sqflite/widgets/input_name.dart';
-import 'package:crud_sqflite/widgets/input_phone.dart';
-import 'package:crud_sqflite/widgets/text_presentation.dart';
+import 'package:crud_sqflite/views/widgets/add_user.dart';
+import 'package:crud_sqflite/views/widgets/delete_user.dart';
+import 'package:crud_sqflite/views/widgets/input_age.dart';
+import 'package:crud_sqflite/views/widgets/input_name.dart';
+import 'package:crud_sqflite/views/widgets/input_phone.dart';
+import 'package:crud_sqflite/views/widgets/text_presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/home_viewmodel.dart';
@@ -70,12 +70,6 @@ class HomePage extends StatelessWidget {
                       content: const Text(
                           '¿Estás seguro de que quieres modificar los datos?'),
                       actions: [
-                        TextButton(
-                          child: const Text('Cancelar'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Cierra el diálogo
-                          },
-                        ),
                         ElevatedButton(
                           child: const Text('Aceptar'),
                           onPressed: () {
@@ -89,6 +83,12 @@ class HomePage extends StatelessWidget {
                                 .pop(); // Cierra el cuadro de confirmación
                             Navigator.of(context)
                                 .pop(); // Cierra el cuadro de edición
+                          },
+                        ),
+                        TextButton(
+                          child: const Text('Cancelar'),
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Cierra el diálogo
                           },
                         ),
                       ],
