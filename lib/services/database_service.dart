@@ -1,3 +1,4 @@
+import 'sample_optional.dart'; // Importamos la nueva función
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/user_model.dart';
@@ -19,12 +20,21 @@ class DatabaseService {
 
   // Método privado para inicializar la base de datos.
   Future<Database> _initializeDB(String filepath) async {
-    // Obtenemos la ruta del directorio de la base de datos.
     final dbpath = await getDatabasesPath();
-    // Unimos la ruta con el nombre del archivo.
     final path = join(dbpath, filepath);
-    // Abrimos la base de datos, creando la tabla si es la primera vez.
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+
+    // Comprobamos si la base de datos ya existe
+    bool dbExists = await databaseExists(path); // Renombramos la variable
+
+    if (!dbExists) {
+      // Si no existe, creamos la base de datos y añadimos los datos de ejemplo
+      final db = await openDatabase(path, version: 1, onCreate: _createDB);
+      // ADD EXAMPLE LIST RANDOM
+      await insertSampleData(db);
+      return db;
+    } else {
+      return await openDatabase(path, version: 1, onCreate: _createDB);
+    }
   }
 
   // Método para crear la tabla en la base de datos.

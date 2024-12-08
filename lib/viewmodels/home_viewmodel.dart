@@ -22,6 +22,7 @@ class HomeViewModel extends ChangeNotifier {
     await fetchUsers(); // Actualizar la lista después de agregar
   }
 
+  // update user database
   Future<void> updateUser(
       int id, String name, int age, String phoneNumber) async {
     if (id <= 0 || name.isEmpty || phoneNumber.isEmpty || age <= 0) {

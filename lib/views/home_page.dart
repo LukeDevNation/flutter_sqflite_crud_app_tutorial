@@ -15,6 +15,94 @@ class HomePage extends StatelessWidget {
 
   HomePage({super.key});
 
+  // Función para mostrar el diálogo de edición
+  Future<void> _showEditDialog(Map<String, dynamic> item, BuildContext context,
+      HomeViewModel viewModel) async {
+    _nameController.text = item['Name'];
+    _ageController.text = item['Age'].toString();
+    _phoneController.text = item['PhoneNumber'];
+
+    await showDialog(
+      context: context,
+      // Esto previene que el diálogo se cierre al hacer clic fuera de él
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Editar datos'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Nombre'),
+              ),
+              TextField(
+                controller: _ageController,
+                decoration: const InputDecoration(labelText: 'Edad'),
+                keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: _phoneController,
+                decoration:
+                    const InputDecoration(labelText: 'Número de Teléfono'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                _nameController.clear(); // Limpiar los campos de texto
+                _ageController.clear();
+                _phoneController.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              child: const Text('Guardar'),
+              onPressed: () {
+                // Muestra un cuadro de diálogo de confirmación antes de guardar
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Confirmar cambios'),
+                      content: const Text(
+                          '¿Estás seguro de que quieres modificar los datos?'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Cancelar'),
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Cierra el diálogo
+                          },
+                        ),
+                        ElevatedButton(
+                          child: const Text('Aceptar'),
+                          onPressed: () {
+                            // Guarda los cambios
+                            viewModel.updateUser(
+                                item['id'],
+                                _nameController.text,
+                                int.tryParse(_ageController.text) ?? 0,
+                                _phoneController.text);
+                            Navigator.of(context)
+                                .pop(); // Cierra el cuadro de confirmación
+                            Navigator.of(context)
+                                .pop(); // Cierra el cuadro de edición
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
@@ -95,24 +183,28 @@ class HomePage extends StatelessWidget {
                             style: const TextStyle(color: Colors.teal),
                           ),
                         ),
+                        // Prin Name User
                         title: Text(
-                          // Nombre del usuario
                           user.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        // Edad y Teléfono
+                        // Prin Age and Phone
                         subtitle: Text(
                             'Edad: ${user.age}\nTeléfono: ${user.phoneNumber}'),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            // Button UpdateUser
                             IconButton(
                               icon: const Icon(Icons.edit, color: Colors.teal),
-                              onPressed: () {},
+                              onPressed: () {
+                                _showEditDialog(
+                                    user.toMap(), context, viewModel);
+                              },
                             ),
-                            //BOTON ELIMINAR
+                            // Button Delete
                             ButtonDeleteUserWidget(userId: user.id!),
                           ],
                         ),
