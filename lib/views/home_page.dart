@@ -1,5 +1,6 @@
 import 'package:crud_sqflite/views/widgets/add_user.dart';
 import 'package:crud_sqflite/views/widgets/delete_user.dart';
+import 'package:crud_sqflite/views/widgets/edit_user.dart';
 import 'package:crud_sqflite/views/widgets/input_age.dart';
 import 'package:crud_sqflite/views/widgets/input_name.dart';
 import 'package:crud_sqflite/views/widgets/input_phone.dart';
@@ -14,94 +15,6 @@ class HomePage extends StatelessWidget {
   final TextEditingController _phoneController = TextEditingController();
 
   HomePage({super.key});
-
-  // Función para mostrar el diálogo de edición
-  Future<void> _showEditDialog(Map<String, dynamic> item, BuildContext context,
-      HomeViewModel viewModel) async {
-    _nameController.text = item['Name'];
-    _ageController.text = item['Age'].toString();
-    _phoneController.text = item['PhoneNumber'];
-
-    await showDialog(
-      context: context,
-      // Esto previene que el diálogo se cierre al hacer clic fuera de él
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Editar datos'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Nombre'),
-              ),
-              TextField(
-                controller: _ageController,
-                decoration: const InputDecoration(labelText: 'Edad'),
-                keyboardType: TextInputType.number,
-              ),
-              TextField(
-                controller: _phoneController,
-                decoration:
-                    const InputDecoration(labelText: 'Número de Teléfono'),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              child: const Text('Cancelar'),
-              onPressed: () {
-                _nameController.clear(); // Limpiar los campos de texto
-                _ageController.clear();
-                _phoneController.clear();
-                Navigator.of(context).pop();
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Guardar'),
-              onPressed: () {
-                // Muestra un cuadro de diálogo de confirmación antes de guardar
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Confirmar cambios'),
-                      content: const Text(
-                          '¿Estás seguro de que quieres modificar los datos?'),
-                      actions: [
-                        ElevatedButton(
-                          child: const Text('Aceptar'),
-                          onPressed: () {
-                            // Guarda los cambios
-                            viewModel.updateUser(
-                                item['id'],
-                                _nameController.text,
-                                int.tryParse(_ageController.text) ?? 0,
-                                _phoneController.text);
-                            Navigator.of(context)
-                                .pop(); // Cierra el cuadro de confirmación
-                            Navigator.of(context)
-                                .pop(); // Cierra el cuadro de edición
-                          },
-                        ),
-                        TextButton(
-                          child: const Text('Cancelar'),
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Cierra el diálogo
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +32,9 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -155,9 +69,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 10),
           Expanded(
             child: Card(
-              margin: const EdgeInsets.all(16.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -197,13 +112,7 @@ class HomePage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             // Button UpdateUser
-                            IconButton(
-                              icon: const Icon(Icons.edit, color: Colors.teal),
-                              onPressed: () {
-                                _showEditDialog(
-                                    user.toMap(), context, viewModel);
-                              },
-                            ),
+                            ButtonUpdateUserWidget(userData: user.toMap()),
                             // Button Delete
                             ButtonDeleteUserWidget(userId: user.id!),
                           ],
@@ -215,6 +124,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 10),
         ],
       ),
     );
