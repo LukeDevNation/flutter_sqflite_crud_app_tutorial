@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ButtonAddUserWidget extends StatelessWidget {
+  // Controllers to receive user input for name, age, and phone.
   final TextEditingController nameController;
   final TextEditingController ageController;
   final TextEditingController phoneController;
@@ -13,14 +14,16 @@ class ButtonAddUserWidget extends StatelessWidget {
       required this.ageController,
       required this.phoneController});
 
+  // Shows an error dialog with a provided message.
   Future<void> _showErrorDialog(BuildContext context, String message) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'),
-          content: Text(message),
+          title: const Text('Error'), // Dialog title for errors.
+          content: Text(message), // Displays the error message.
           actions: [
+            // Closes the dialog when "OK" is pressed.
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -35,51 +38,63 @@ class ButtonAddUserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Access the ViewModel to handle user-related operations.
     final viewModel = context.watch<HomeViewModel>();
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () async {
-          final name = nameController.text.trim();
-          final ageText = ageController.text.trim();
-          final phone = phoneController.text.trim();
+    return Center(
+      child: SizedBox(
+        // Ensures the button spans the full width.
+        //width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () async {
+            // Trimmed user input for name, age, and phone.
+            final name = nameController.text.trim();
+            final ageText = ageController.text.trim();
+            final phone = phoneController.text.trim();
 
-          // Verificar nombre válido (sin números ni caracteres especiales)
-          final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
-          if (!nameRegex.hasMatch(name)) {
-            await _showErrorDialog(context, 'Ingresa el Nombre.');
-            return;
-          }
+            // Validate the name (no numbers or special characters).
+            final nameRegex = RegExp(r'^[a-zA-Z\s]+$');
+            if (!nameRegex.hasMatch(name)) {
+              // Show error if invalid.
+              await _showErrorDialog(context, 'Enter the Name.');
+              return;
+            }
 
-          // Verificar edad válida
-          final age = int.tryParse(ageText);
-          if (age == null || age <= 0) {
-            await _showErrorDialog(context, 'Ingresa la Edad.');
-            return;
-          }
+            // Validate the age (positive integer).
+            final age = int.tryParse(ageText);
+            if (age == null || age <= 0) {
+              // Show error if invalid.
+              await _showErrorDialog(context, 'Enter the Age.');
+              return;
+            }
 
-          // Verificar teléfono válido (solo números)
-          final phoneRegex = RegExp(r'^\d+$');
-          if (!phoneRegex.hasMatch(phone)) {
-            await _showErrorDialog(context, 'Ingresa el Numero de Telefono.');
-            return;
-          }
+            // Validate the phone number (only digits).
+            final phoneRegex = RegExp(r'^\d+$');
+            if (!phoneRegex.hasMatch(phone)) {
+              // Show error if invalid.
+              await _showErrorDialog(context, 'Enter the Phone Number.');
+              return;
+            }
 
-          // Agregar usuario si los datos son válidos
-          await viewModel.addUser(name, age, phone);
+            // Add the user to the database if all inputs are valid.
+            await viewModel.addUser(name, age, phone);
 
-          // Limpiar los campos
-          nameController.clear();
-          ageController.clear();
-          phoneController.clear();
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.teal,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            // Clear the input fields after successful submission.
+            nameController.clear();
+            ageController.clear();
+            phoneController.clear();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.teal, // Button color.
+            shape: RoundedRectangleBorder(
+              // Rounded corners for the button.
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
+          child: const Text(
+            'Add User',
+            style: TextStyle(color: Colors.white),
+          ), // Button label.
         ),
-        child: const Text('Agregar Usuario'),
       ),
     );
   }
