@@ -40,7 +40,7 @@ Here are some screenshots of the application in action:
 
 ### Home Screen
 
-![Home Screen][(assets/demo/home_screen.jpeg "Main view of the app")](https://github.com/LukeDevNation/flutter_sqlite_crud_app_tutorial/blob/b6b1b1b048cf7da915296561423e9b269b4e8cc2/assets/demo/home_screen.jpeg)
+![Home Screen](assets/demo/home_screen.jpeg "Main view of the app")
 
 ### Delete User
 
