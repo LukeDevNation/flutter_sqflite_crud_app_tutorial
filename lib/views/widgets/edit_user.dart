@@ -158,7 +158,7 @@ class ButtonUpdateUserWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     // Button icon for triggering the edit dialog
     return IconButton(
-      icon: const Icon(Icons.edit, color: Colors.teal),
+      icon: const Icon(Icons.edit, color: Color.fromARGB(255, 211, 164, 9)),
       onPressed: () =>
           _showEditDialog(context), // Trigger the edit dialog on press
     );

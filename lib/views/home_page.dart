@@ -39,51 +39,50 @@ class HomePage extends StatelessWidget {
         elevation: 0,
       ),
 
-      body: Column(
-        children: [
-          //const SizedBox(height: 10), // Spacing at the top.
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(12), // Rounded corners for the card.
-              ),
-              color: const Color.fromARGB(255, 2, 110, 96),
-              elevation: 4, // Adds shadow for depth.
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Title widget at the top of the form.
-                    const TextCustom(),
-                    const SizedBox(height: 12),
-                    // Input field for the name.
-                    InputNameWidget(nameController: _nameController),
-                    const SizedBox(height: 12),
-                    // Input field for the age.
-                    InputAgeWidget(ageController: _ageController),
-                    const SizedBox(height: 12),
-                    // Input field for the phone number.
-                    InputPhoneWidget(phoneController: _phoneController),
-                    const SizedBox(height: 16),
-                    // Button to add a new user with the entered details.
-                    ButtonAddUserWidget(
-                      nameController: _nameController,
-                      ageController: _ageController,
-                      phoneController: _phoneController,
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            //const SizedBox(height: 10), // Spacing at the top.
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                color: const Color.fromARGB(255, 2, 110, 96),
+                elevation: 4, // Adds shadow for depth.
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title widget at the top of the form.
+                      const TextCustom(),
+                      const SizedBox(height: 12),
+                      // Input field for the name.
+                      InputNameWidget(nameController: _nameController),
+                      const SizedBox(height: 12),
+                      // Input field for the age.
+                      InputAgeWidget(ageController: _ageController),
+                      const SizedBox(height: 12),
+                      // Input field for the phone number.
+                      InputPhoneWidget(phoneController: _phoneController),
+                      const SizedBox(height: 16),
+                      // Button to add a new user with the entered details.
+                      ButtonAddUserWidget(
+                        nameController: _nameController,
+                        ageController: _ageController,
+                        phoneController: _phoneController,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          // Section to display the list of users.
-          Expanded(
-            child: Card(
-              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            const SizedBox(height: 10),
+            // Section to display the list of users.
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 7.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -91,58 +90,74 @@ class HomePage extends StatelessWidget {
               color: const Color.fromARGB(255, 1, 126, 131),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  // Dynamically builds a list of users from the ViewModel.
-                  itemCount: viewModel.users.length,
-                  itemBuilder: (context, index) {
-                    final user = viewModel.users[index];
-                    return Card(
-                      color: const Color.fromARGB(184, 58, 70, 71),
-                      margin: const EdgeInsets.symmetric(vertical: 8.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      elevation: 2,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          backgroundColor: Colors.white70,
-                          child: Text(
-                            // Displays the first letter of the user's name.
-                            user.name[0].toUpperCase(),
-                            style: const TextStyle(color: Colors.teal),
-                          ),
-                        ),
-                        // Displays the user's name in bold.
-                        title: Text(
-                          user.name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 206, 140, 17),
-                          ),
-                        ),
-                        // Displays the user's age and phone number.
-                        subtitle: Text(
-                          'Age: ${user.age}\nPhone: ${user.phoneNumber}',
-                          style: const TextStyle(color: Colors.white70),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            // Button to edit user details.
-                            ButtonUpdateUserWidget(userData: user.toMap()),
-                            // Button to delete the user.
-                            ButtonDeleteUserWidget(userId: user.id!),
-                          ],
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        ' List of Registered Users:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.italic,
+                          color: Color.fromARGB(214, 255, 255, 255),
                         ),
                       ),
-                    );
-                  },
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      // Dynamically builds a list of users from the ViewModel.
+                      itemCount: viewModel.users.length,
+                      itemBuilder: (context, index) {
+                        final user = viewModel.users[index];
+                        return Card(
+                          color: const Color.fromARGB(184, 58, 70, 71),
+                          margin: const EdgeInsets.symmetric(vertical: 8.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 2,
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.white70,
+                              child: Text(
+                                // Displays the first letter of the user's name.
+                                user.name[0].toUpperCase(),
+                                style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
+                              ),
+                            ),
+                            // Displays the user's name in bold.
+                            title: Text(
+                              user.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 206, 140, 17),
+                              ),
+                            ),
+                            // Displays the user's age and phone number.
+                            subtitle: Text(
+                              'Age: ${user.age}\nPhone: ${user.phoneNumber}',
+                              style: const TextStyle(color: Colors.white70),
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                // Button to edit user details.
+                                ButtonUpdateUserWidget(userData: user.toMap()),
+                                // Button to delete the user.
+                                ButtonDeleteUserWidget(userId: user.id!),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 10), // Bottom spacing.
-        ],
+          ],
+        ),
       ),
     );
   }

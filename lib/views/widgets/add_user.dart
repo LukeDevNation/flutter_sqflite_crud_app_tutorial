@@ -91,7 +91,7 @@ class ButtonAddUserWidget extends StatelessWidget {
             phoneController.clear();
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[850],
+            backgroundColor: const Color.fromARGB(225, 58, 70, 71),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -99,11 +99,9 @@ class ButtonAddUserWidget extends StatelessWidget {
           child: const Text(
             'Add User',
             style: TextStyle(
-              fontSize: 18, // Consistencia en el tamaño.
-              fontWeight:
-                  FontWeight.w600, // Peso semi-negrita como en otros textos.
-              color: Colors.white70, // Color sutil para un diseño oscuro.
-              //letterSpacing: 1.2, // Espaciado elegante entre letras.
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Color.fromARGB(235, 253, 253, 253),
             ),
           ),
         ),
