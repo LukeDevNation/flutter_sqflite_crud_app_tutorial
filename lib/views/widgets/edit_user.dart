@@ -26,52 +26,104 @@ class ButtonUpdateUserWidget extends StatelessWidget {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Edit Data'),
+          title: const Text(
+            'Edit Data',
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              color: Colors.white,
+            ),
+          ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // Text field for Name
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  labelStyle: TextStyle(color: Colors.white70),
+                  filled: true,
+                  // Dark background for text fields.
+                  fillColor: Colors.transparent,
+                ),
+                // Text color inside text field.
+                style: const TextStyle(color: Colors.white),
               ),
+              const SizedBox(height: 8),
               // Text field for Age (only accepts numbers)
               TextField(
                 controller: ageController,
-                decoration: const InputDecoration(labelText: 'Age'),
+                decoration: const InputDecoration(
+                  labelText: 'Age',
+                  labelStyle: TextStyle(color: Colors.white70),
+                  filled: true,
+                  // Dark background for text fields.
+                  fillColor: Colors.transparent,
+                ),
                 keyboardType: TextInputType.number,
+                // Text color inside text field.
+                style: const TextStyle(color: Colors.white),
               ),
+              const SizedBox(height: 8),
               // Text field for Phone Number
               TextField(
                 controller: phoneController,
-                decoration: const InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(
+                  labelText: 'Phone Number',
+                  labelStyle: TextStyle(color: Colors.white70),
+                  filled: true,
+                  // Dark background for text fields.
+                  fillColor: Colors.transparent,
+                ),
+                // Text color inside text field.
+                style: const TextStyle(color: Colors.white),
               ),
             ],
           ),
           actions: [
             // Cancel button: closes the dialog without making changes
             TextButton(
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.tealAccent),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             // Save button: triggers the save confirmation dialog
             ElevatedButton(
-              child: const Text('Save'),
+              child: const Text(
+                'Save',
+                style: TextStyle(color: Colors.black87),
+              ),
               onPressed: () {
                 // Show a confirmation dialog before applying the changes
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: const Text('Confirm Changes'),
+                      backgroundColor: const Color.fromARGB(255, 2, 61, 63),
+                      title: const Text(
+                        'Confirm Changes',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       content: const Text(
-                          'Are you sure you want to modify the data?'),
+                        'Are you sure you want to modify the data?',
+                        style: TextStyle(color: Colors.white70),
+                      ),
                       actions: [
+                        // Cancel button: closes the confirmation dialog without changes
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: TextButton.styleFrom(
+                              foregroundColor: Colors.tealAccent),
+                          child: const Text('Cancel'),
+                        ),
                         // Confirm button: applies the changes and closes both dialogs
                         ElevatedButton(
-                          child: const Text('Confirm'),
                           onPressed: () {
                             // Update the user data using the ViewModel
                             viewModel.updateUser(
@@ -85,13 +137,9 @@ class ButtonUpdateUserWidget extends StatelessWidget {
                             Navigator.of(context)
                                 .pop(); // Close the edit dialog
                           },
-                        ),
-                        // Cancel button: closes the confirmation dialog without changes
-                        TextButton(
-                          child: const Text('Cancel'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
+                          style: TextButton.styleFrom(
+                              foregroundColor: Colors.black87),
+                          child: const Text('Confirm'),
                         ),
                       ],
                     );
@@ -100,6 +148,7 @@ class ButtonUpdateUserWidget extends StatelessWidget {
               },
             ),
           ],
+          backgroundColor: const Color(0xFF121212),
         );
       },
     );

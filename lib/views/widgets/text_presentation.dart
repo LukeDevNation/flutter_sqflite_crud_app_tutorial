@@ -6,12 +6,11 @@ class TextCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      // The text that will be displayed
-      'Add User',
+      ' Create New User:',
       style: TextStyle(
-        fontSize: 19,
-        fontWeight: FontWeight.bold,
-        color: Colors.black87,
+        fontSize: 18,
+        fontStyle: FontStyle.italic,
+        color: Color.fromARGB(214, 255, 255, 255),
       ),
     );
   }

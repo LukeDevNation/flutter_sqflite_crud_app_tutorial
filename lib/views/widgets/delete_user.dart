@@ -23,22 +23,31 @@ class ButtonDeleteUserWidget extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Confirm Deletion'),
-            content: const Text('Are you sure you want to delete this user?'),
+            backgroundColor: const Color.fromARGB(255, 2, 61, 63),
+            title: const Text(
+              'Confirm Deletion',
+              style: TextStyle(color: Colors.white),
+            ),
+            content: const Text(
+              'Are you sure you want to delete this user?',
+              style: TextStyle(color: Colors.white70),
+            ),
             actions: [
               // Cancel button: closes the dialog without deleting
               TextButton(
-                child: const Text('Cancel'),
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
+                style: TextButton.styleFrom(foregroundColor: Colors.tealAccent),
+                child: const Text('Cancel'),
               ),
               // Confirm button: closes the dialog and confirms deletion
               ElevatedButton(
-                child: const Text('Confirm'),
                 onPressed: () {
                   Navigator.of(context).pop(true);
                 },
+                style: TextButton.styleFrom(foregroundColor: Colors.black87),
+                child: const Text('Confirm'),
               ),
             ],
           );

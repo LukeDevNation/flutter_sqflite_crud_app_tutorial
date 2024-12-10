@@ -20,14 +20,21 @@ class ButtonAddUserWidget extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Error'), // Dialog title for errors.
-          content: Text(message), // Displays the error message.
+          backgroundColor: const Color(0xFF121212),
+          title: const Text(
+            'Error',
+            style: TextStyle(color: Colors.white),
+          ), // Dialog title for errors.
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.white70),
+          ), // Displays the error message.
           actions: [
-            // Closes the dialog when "OK" is pressed.
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
+              style: TextButton.styleFrom(foregroundColor: Colors.tealAccent),
               child: const Text('OK'),
             ),
           ],
@@ -84,16 +91,21 @@ class ButtonAddUserWidget extends StatelessWidget {
             phoneController.clear();
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal, // Button color.
+            backgroundColor: Colors.grey[850],
             shape: RoundedRectangleBorder(
-              // Rounded corners for the button.
               borderRadius: BorderRadius.circular(8),
             ),
           ),
           child: const Text(
             'Add User',
-            style: TextStyle(color: Colors.white),
-          ), // Button label.
+            style: TextStyle(
+              fontSize: 18, // Consistencia en el tamaño.
+              fontWeight:
+                  FontWeight.w600, // Peso semi-negrita como en otros textos.
+              color: Colors.white70, // Color sutil para un diseño oscuro.
+              //letterSpacing: 1.2, // Espaciado elegante entre letras.
+            ),
+          ),
         ),
       ),
     );

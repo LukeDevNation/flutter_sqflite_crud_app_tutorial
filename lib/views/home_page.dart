@@ -23,19 +23,25 @@ class HomePage extends StatelessWidget {
     final viewModel = context.watch<HomeViewModel>();
 
     return Scaffold(
-      backgroundColor:
-          Colors.amberAccent, // Sets the background color of the app.
+      // Sets the background color of the app.
+      backgroundColor: const Color.fromARGB(137, 3, 122, 102),
       appBar: AppBar(
         title: const Text(
-          'CRUD Example', // Title of the app.
-          style: TextStyle(color: Colors.white),
+          'CRUD Example',
+          style: TextStyle(
+            color: Colors.white,
+            fontStyle: FontStyle.italic,
+            fontSize: 28,
+          ),
         ),
-        centerTitle: true, // Centers the title in the AppBar.
-        backgroundColor: Colors.teal,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
+
       body: Column(
         children: [
-          const SizedBox(height: 10), // Spacing at the top.
+          //const SizedBox(height: 10), // Spacing at the top.
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Card(
@@ -43,7 +49,7 @@ class HomePage extends StatelessWidget {
                 borderRadius:
                     BorderRadius.circular(12), // Rounded corners for the card.
               ),
-              color: Colors.greenAccent,
+              color: const Color.fromARGB(255, 2, 110, 96),
               elevation: 4, // Adds shadow for depth.
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -82,7 +88,7 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               elevation: 4,
-              color: Colors.greenAccent,
+              color: const Color.fromARGB(255, 1, 126, 131),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListView.builder(
@@ -91,6 +97,7 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final user = viewModel.users[index];
                     return Card(
+                      color: const Color.fromARGB(184, 58, 70, 71),
                       margin: const EdgeInsets.symmetric(vertical: 8.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -98,7 +105,7 @@ class HomePage extends StatelessWidget {
                       elevation: 2,
                       child: ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: Colors.teal[100],
+                          backgroundColor: Colors.white70,
                           child: Text(
                             // Displays the first letter of the user's name.
                             user.name[0].toUpperCase(),
@@ -110,11 +117,14 @@ class HomePage extends StatelessWidget {
                           user.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 206, 140, 17),
                           ),
                         ),
                         // Displays the user's age and phone number.
                         subtitle: Text(
-                            'Edad: ${user.age}\nTeléfono: ${user.phoneNumber}'),
+                          'Age: ${user.age}\nPhone: ${user.phoneNumber}',
+                          style: const TextStyle(color: Colors.white70),
+                        ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
