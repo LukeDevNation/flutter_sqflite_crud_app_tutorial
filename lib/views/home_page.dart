@@ -80,6 +80,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
+
             // Section to display the list of users.
             Card(
               margin: const EdgeInsets.symmetric(horizontal: 7.0),
@@ -104,6 +105,12 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     ListView.builder(
+                      // Prevents the ListView from being scrollable,
+                      // allowing the parent scrollable widget to manage
+                      // the scrolling behavior.
+                      physics: const NeverScrollableScrollPhysics(),
+                      // Adjusts the ListView's height to fit its content
+                      // instead of taking up infinite vertical space.
                       shrinkWrap: true,
                       // Dynamically builds a list of users from the ViewModel.
                       itemCount: viewModel.users.length,
