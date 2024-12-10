@@ -36,46 +36,43 @@ class HomePage extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        elevation: 0,
+        //elevation: 0,
       ),
 
       body: SingleChildScrollView(
         child: Column(
           children: [
-            //const SizedBox(height: 10), // Spacing at the top.
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3.0),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                color: const Color.fromARGB(255, 2, 110, 96),
-                elevation: 4, // Adds shadow for depth.
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Title widget at the top of the form.
-                      const TextCustom(),
-                      const SizedBox(height: 12),
-                      // Input field for the name.
-                      InputNameWidget(nameController: _nameController),
-                      const SizedBox(height: 12),
-                      // Input field for the age.
-                      InputAgeWidget(ageController: _ageController),
-                      const SizedBox(height: 12),
-                      // Input field for the phone number.
-                      InputPhoneWidget(phoneController: _phoneController),
-                      const SizedBox(height: 16),
-                      // Button to add a new user with the entered details.
-                      ButtonAddUserWidget(
-                        nameController: _nameController,
-                        ageController: _ageController,
-                        phoneController: _phoneController,
-                      ),
-                    ],
-                  ),
+            Card(
+              margin: const EdgeInsets.symmetric(horizontal: 7.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              color: const Color.fromARGB(255, 2, 110, 96),
+              elevation: 5, // Adds shadow for depth.
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Title widget at the top of the form.
+                    const TextCustom(),
+                    const SizedBox(height: 12),
+                    // Input field for the name.
+                    InputNameWidget(nameController: _nameController),
+                    const SizedBox(height: 12),
+                    // Input field for the age.
+                    InputAgeWidget(ageController: _ageController),
+                    const SizedBox(height: 12),
+                    // Input field for the phone number.
+                    InputPhoneWidget(phoneController: _phoneController),
+                    const SizedBox(height: 16),
+                    // Button to add a new user with the entered details.
+                    ButtonAddUserWidget(
+                      nameController: _nameController,
+                      ageController: _ageController,
+                      phoneController: _phoneController,
+                    ),
+                  ],
                 ),
               ),
             ),

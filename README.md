@@ -34,6 +34,28 @@ The app is designed using the **MVVM** architecture pattern for better separatio
 - **ViewModel**: Processes and prepares data for the View. Bridges user actions with database logic.
 - **View**: Displays the UI and listens for changes in the ViewModel.
 
+## **Demonstration**
+
+Here are some screenshots of the application in action:
+
+### Home Screen
+
+![Home Screen](assets/demo/home_screen.jpeg "Main view of the app")
+
+### Delete User
+
+![Delete User Screen](assets/demo/delete_user.jpeg "Delete a user from the list")
+
+### List of Users
+
+![List of Users Screen](assets/demo/user_list.jpeg "List of registered users with edit and delete options")
+
+### Edit User
+
+![Edit User Screen](assets/demo/edit_user.jpeg "Update user information")
+
+---
+
 ## **Installation**
 
 To run this project locally:
